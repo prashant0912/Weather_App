@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       
+        #head{
+            text-align: center;
+            color: brown;
+        }
+        #city{
+            width:600px;
+            height:30px;
+            margin-left:30%;
+            border-radius: 20px;
+            font-size: 20px;
+        }
+        button{
+            padding:10px 30px;
+            border-radius: 20px;
+            cursor: pointer;
+            background-color: black;
+            color: white;
+        }
+        .weather{
+            margin-left:30px;
+            color:red;
+            margin-left: 10%;
+            font-size: 20px;
+            font-weight: 10px;
+        }
+        .heading{
+            font-size: 40px;
+            margin-left: 10%;
+            font-weight: 60px;
+            margin-top:0px;
+        }
+        .image{
+            margin-left:8%;
+            width:170px;
+            height:100px;
+        }
+        
+        #inp_box{
+            width:1450px;
+            height:300px;
+            background-image: url("https://media.istockphoto.com/photos/panoramic-view-of-colorful-sunrise-in-mountains-picture-id620951116?k=20&m=620951116&s=612x612&w=0&h=J98krM_DhMkVpAzPOxfgT15jAD8PWQrtdrQftyxHjbE=");
+            background-size: 1430px 300px;
+        }
+       #location{
+           width:90px;
+           height:60px;
+           margin-left:15%;
+        }
+        #box{
+            width:30%;
+            height:550px;
+
+        }
+        #box1{
+            width:80%;
+            height:550px;
+            display: flex;
+        }
+        #box2{
+            width:100%;
+            height:550px;
+            display: flex;
+        }
+        .small{
+            width:14%;
+            height:100%;
+
+        }
+        #days_box{
+            width:100%;
+            height:300px;
+            display:flex;
+
+        }
+        #days_box>div{
+            width:60%;
+            height:300px;
+            border:1px solid teal
+        }
+        #image1{
+            margin-left:8%;
+            width:150px;
+            height:90px;
+        }
+
+        
+      
+
+      
+    
+    </style>
+</head>
+
+<body>
+    <div id = "inp_box">
+    <h1 id = "head">Check Weather</h1>
+    <input id = "city" type="text" placeholder="Enter City Name">
+    <button onclick = "getweather()">Search</button>
+    </div>
+    <div id = "box2">
+        <div id = "box"></div>
+        <div id = "box1"></div>
+    </div>
+    </div>
+    <div id = "days_box">
+        <div id = "day1"></div>
+        <div id = "day2"></div>
+        <div id = "day3"></div>
+        <div id = "day4"></div>
+        <div id = "day5"></div>
+        <div id = "day6"></div>
+        <div id = "day7"></div>
+    </div>
+
+    
+    
+</body>
+</html>
+<script>
+    var new_box = document.getElementById("box");
+    var city1 = document.getElementById("city").value;
+    async function getweather(){
+        var city1 = document.getElementById("city").value;
+        var res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city1}&appid=2f9a21edf4eaaa2da93674af38937278&units=metric `);
+        var data = await res.json();
+        var lat = data.coord.lat;
+        var lon = data.coord.lon;
+        var res1 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=2f9a21edf4eaaa2da93674af38937278&units=metric`);
+        var data1 = await res1.json();
+        console.log(data1);
+        weather(data);
+        seven_days(data1);
+       
+    }
+ 
+
+    function weather(data){
+        document.getElementById("box").innerHTML = "";
+        document.getElementById("box1").innerHTML = "";
+        var temp_min = document.createElement("p");
+        temp_min.setAttribute("class","weather");
+        temp_min.textContent = `Temperature-${data.main.temp_min}°C`;
+        var temp_max = document.createElement("p");
+        temp_max.textContent = `Max.Temperature-${data.main.temp_max}°C`;
+        temp_max.setAttribute("class","weather");
+        var clouds = document.createElement("p");
+        clouds.textContent = `Clouds-${data.wind.speed}`;
+        clouds.setAttribute("class","weather");
+        var h5 = document.createElement("p");
+        h5.setAttribute("class","heading");
+        h5.textContent = document.getElementById("city").value;
+        var img = document.createElement("img");
+        img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
+        img.setAttribute("id","image");
+        var img2 = document.createElement("img");
+        img2.src = "https://media.istockphoto.com/vectors/map-pin-icon-for-your-web-site-and-mobile-app-vector-id1261917621?k=20&m=1261917621&s=612x612&w=0&h=ZW4ZTUST3Ky33-puOgYWiijU_vlnebg-WJwOilF648A="
+        img2.setAttribute("id","location");
+        var div = document.createElement("div");
+        div.append(h5,img2);
+        new_box.append(div,img,temp_min,temp_max,clouds);
+        var city1 = document.getElementById("city").value;
+        var iframe = document.createElement("iframe");
+        iframe.src = `https://maps.google.com/maps?q=${city1}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+        iframe.width = "1100";
+        iframe.height = "540";
+        document.getElementById("box1").append(iframe);
+
+        
+        
+    }
+    function seven_days(data1){
+       document.getElementById("day1").innerHTML = "";
+       document.getElementById("day2").innerHTML = "";
+       document.getElementById("day3").innerHTML = "";
+       document.getElementById("day4").innerHTML = "";
+       document.getElementById("day5").innerHTML = "";
+       document.getElementById("day6").innerHTML = "";
+       document.getElementById("day7").innerHTML = "";
+        var p = document.createElement("p");
+        p.setAttribute("class","weather");
+        p.textContent = `Max-Temp-${data1.daily[0].temp.max}°C`;
+        var p1 = document.createElement("p");
+        p1.setAttribute("class","weather");
+        p1.textContent = `Max-Temp-${data1.daily[0].temp.min}°C`;
+        var img = document.createElement("img");
+        img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
+        img.setAttribute("class","image");
+        const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        const d = new Date();
+        let day = days[d.getDay()];
+        document.getElementById("day1").append(day,p,img,p1);
+        var p2 = document.createElement("p");
+        p2.setAttribute("class","weather");
+        p2.textContent = `Max-Temp-${data1.daily[1].temp.max}°C`;
+        var p3 = document.createElement("p");
+        p3.setAttribute("class","weather");
+        p3.textContent = `Max-Temp-${data1.daily[1].temp.min}°C`;
+        var img1 = document.createElement("img");
+        img1.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
+        img1.setAttribute("class","image");
+        let day1 = days[d.getDay()+1];
+        document.getElementById("day2").append(day1,p2,img1,p3);
+        var p4 = document.createElement("p");
+        p4.setAttribute("class","weather");
+        p4.textContent = `Max-Temp-${data1.daily[2].temp.max}°C`;
+        var p5 = document.createElement("p");
+        p5.setAttribute("class","weather");
+        p5.textContent = `Max-Temp-${data1.daily[2].temp.min}°C`;
+        var img1 = document.createElement("img");
+        img1.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
+        img1.setAttribute("class","image");
+        let day2 = days[d.getDay()+2];
+        document.getElementById("day3").append(day2,p4,img1,p5);
+        var p6 = document.createElement("p");
+        p6.setAttribute("class","weather");
+        p6.textContent = `Max-Temp-${data1.daily[3].temp.max}°C`;
+        var p7 = document.createElement("p");
+        p7.setAttribute("class","weather");
+        p7.textContent = `Max-Temp-${data1.daily[3].temp.min}°C`;
+        var img1 = document.createElement("img");
+        img1.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
+        img1.setAttribute("class","image");
+        let day4 = days[d.getDay()+3];
+        document.getElementById("day4").append(day4,p6,img1,p7);
+        var p8 = document.createElement("p");
+        p8.setAttribute("class","weather");
+        p8.textContent = `Max-Temp-${data1.daily[4].temp.max}°C`;
+        var p9 = document.createElement("p");
+        p9.setAttribute("class","weather");
+        p9.textContent = `Max-Temp-${data1.daily[4].temp.min}°C`;
+        var img1 = document.createElement("img");
+        img1.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
+        img1.setAttribute("class","image");
+        let day5 = days[d.getDay()+4];
+        document.getElementById("day5").append(day5,p8,img1,p9);
+        var p10 = document.createElement("p");
+        p10.setAttribute("class","weather");
+        p10.textContent = `Max-Temp-${data1.daily[5].temp.max}°C`;
+        var p11 = document.createElement("p");
+        p11.setAttribute("class","weather");
+        p11.textContent = `Max-Temp-${data1.daily[5].temp.min}°C`;
+        var img1 = document.createElement("img");
+        img1.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
+        img1.setAttribute("class","image");
+        let day6 = days[d.getDay()*0];
+        document.getElementById("day6").append(day6,p10,img1,p11);
+        var p12 = document.createElement("p");
+        p12.setAttribute("class","weather");
+        p12.textContent = `Max-Temp-${data1.daily[6].temp.max}°C`;
+        var p13 = document.createElement("p");
+        p13.setAttribute("class","weather");
+        p13.textContent = `Max-Temp-${data1.daily[6].temp.min}°C`;
+        var img1 = document.createElement("img");
+        img1.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
+        img1.setAttribute("class","image");
+        let day7 = days[d.getDay()*0+(1)];
+        document.getElementById("day7").append(day7,p12,img1,p13);
+        
+        
+        
+        
+
+    }
+    
+    
+    
+</script>
