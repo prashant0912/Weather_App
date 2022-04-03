@@ -198,18 +198,13 @@
         var img = document.createElement("img");
         img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
         img.setAttribute("class","image");
-        // const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-        // const d = new Date();
-        // var today = new Date(); // Or Date.today()
-        // var tomorrow = today.add(1).day();
-        // console.log(tomorrow)
+       
         var day = new Date();
 
         var nextDay = new Date(day);
         nextDay.setDate(day.getDate() + 1);
         
-        // let day = days[d.getDay()];
-        // console.log(d.toLocaleDateString()+1);
+        
         document.getElementById("day1").append(day.toLocaleDateString(),p,img,p1);
         var p2 = document.createElement("p");
         p2.setAttribute("class","weather");
