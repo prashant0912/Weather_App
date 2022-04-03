@@ -45,10 +45,14 @@
         }
         
         #inp_box{
-            width:1450px;
+            width:101%;
             height:300px;
             background-image: url("https://media.istockphoto.com/photos/panoramic-view-of-colorful-sunrise-in-mountains-picture-id620951116?k=20&m=620951116&s=612x612&w=0&h=J98krM_DhMkVpAzPOxfgT15jAD8PWQrtdrQftyxHjbE=");
             background-size: 1430px 300px;
+            /* border: 2px solid red; */
+            margin: auto;
+            margin-top: -20px;
+            margin-left: -7px;
         }
        #location{
            width:90px;
@@ -194,10 +198,19 @@
         var img = document.createElement("img");
         img.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
         img.setAttribute("class","image");
-        const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-        const d = new Date();
-        let day = days[d.getDay()];
-        document.getElementById("day1").append(day,p,img,p1);
+        // const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        // const d = new Date();
+        // var today = new Date(); // Or Date.today()
+        // var tomorrow = today.add(1).day();
+        // console.log(tomorrow)
+        var day = new Date();
+
+        var nextDay = new Date(day);
+        nextDay.setDate(day.getDate() + 1);
+        
+        // let day = days[d.getDay()];
+        // console.log(d.toLocaleDateString()+1);
+        document.getElementById("day1").append(day.toLocaleDateString(),p,img,p1);
         var p2 = document.createElement("p");
         p2.setAttribute("class","weather");
         p2.textContent = `Max-Temp-${data1.daily[1].temp.max}°C`;
@@ -207,8 +220,9 @@
         var img1 = document.createElement("img");
         img1.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
         img1.setAttribute("class","image");
-        let day1 = days[d.getDay()+1];
-        document.getElementById("day2").append(day1,p2,img1,p3);
+        var nextDay = new Date(day);
+        nextDay.setDate(day.getDate() + 1);
+        document.getElementById("day2").append(nextDay.toLocaleDateString(),p2,img1,p3);
         var p4 = document.createElement("p");
         p4.setAttribute("class","weather");
         p4.textContent = `Max-Temp-${data1.daily[2].temp.max}°C`;
@@ -218,8 +232,9 @@
         var img1 = document.createElement("img");
         img1.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
         img1.setAttribute("class","image");
-        let day2 = days[d.getDay()+2];
-        document.getElementById("day3").append(day2,p4,img1,p5);
+        var nextDay1 = new Date(nextDay);
+        nextDay1.setDate(nextDay.getDate() + 1);
+        document.getElementById("day3").append(nextDay1.toLocaleDateString(),p4,img1,p5);
         var p6 = document.createElement("p");
         p6.setAttribute("class","weather");
         p6.textContent = `Max-Temp-${data1.daily[3].temp.max}°C`;
@@ -229,8 +244,9 @@
         var img1 = document.createElement("img");
         img1.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
         img1.setAttribute("class","image");
-        let day4 = days[d.getDay()+3];
-        document.getElementById("day4").append(day4,p6,img1,p7);
+        var nextDay2 = new Date(nextDay1);
+        nextDay2.setDate(nextDay1.getDate() + 1);
+        document.getElementById("day4").append(nextDay2.toLocaleDateString(),p6,img1,p7);
         var p8 = document.createElement("p");
         p8.setAttribute("class","weather");
         p8.textContent = `Max-Temp-${data1.daily[4].temp.max}°C`;
@@ -240,8 +256,9 @@
         var img1 = document.createElement("img");
         img1.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
         img1.setAttribute("class","image");
-        let day5 = days[d.getDay()+4];
-        document.getElementById("day5").append(day5,p8,img1,p9);
+        var nextDay3 = new Date(nextDay2);
+        nextDay3.setDate(nextDay2.getDate() + 1);
+        document.getElementById("day5").append(nextDay3.toLocaleDateString(),p8,img1,p9);
         var p10 = document.createElement("p");
         p10.setAttribute("class","weather");
         p10.textContent = `Max-Temp-${data1.daily[5].temp.max}°C`;
@@ -251,8 +268,9 @@
         var img1 = document.createElement("img");
         img1.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
         img1.setAttribute("class","image");
-        let day6 = days[d.getDay()*0];
-        document.getElementById("day6").append(day6,p10,img1,p11);
+        var nextDay4 = new Date(nextDay3);
+        nextDay4.setDate(nextDay3.getDate() + 1);
+        document.getElementById("day6").append(nextDay4.toLocaleDateString(),p10,img1,p11);
         var p12 = document.createElement("p");
         p12.setAttribute("class","weather");
         p12.textContent = `Max-Temp-${data1.daily[6].temp.max}°C`;
@@ -262,8 +280,9 @@
         var img1 = document.createElement("img");
         img1.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnAj6v0FWn0dib8A1eJ4dYX3ouEwkDNBvhQ&usqp=CAU";
         img1.setAttribute("class","image");
-        let day7 = days[d.getDay()*0+(1)];
-        document.getElementById("day7").append(day7,p12,img1,p13);
+        var nextDay5 = new Date(nextDay4);
+        nextDay5.setDate(nextDay4.getDate() + 1);
+        document.getElementById("day7").append(nextDay5.toLocaleDateString(),p12,img1,p13);
         
         
         
